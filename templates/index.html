@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 700px;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        table {
+            width: 100%;
+            margin-top: 1.5rem;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+        }
+        th {
+            background-color: #f1f1f1;
+        }
+        h2 {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Taglish Tweet Sentiment Analyzer</h1>
+        <form method="POST">
+            <textarea name="user_input" rows="5" placeholder="Paste your text here..." required></textarea><br>
+            <input type="submit" value="Analyze">
+        </form>
+
+        {% if predictions %}
+            <table>
+                <tr>
+                    <th>Sentence</th>
+                    <th>Sentiment</th>
+                    <th>Confidence</th>
+                </tr>
+                {% for item in predictions %}
+                <tr>
+                    <td>{{ item.sentence }}</td>
+                    <td>{{ item.prediction }}</td>
+                    <td>{{ item.probability }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h2>Overall Sentiment: {{ overall | capitalize }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
